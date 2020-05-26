@@ -16,3 +16,10 @@ export const deviceWidth = Dimensions.get('window').width;
 export const deviceHeight = Dimensions.get('window').height;
 
 export const baseURL = 'https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/';
+
+export const colors = {
+  primary: 'purple',
+  timeTextColor: '#fe346e',
+  accent: '#fe346e',
+  accent2: '#00bdaa',
+};

@@ -1,32 +1,30 @@
 import React, {Component} from 'react';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import PropTypes from 'prop-types';
-import { deviceWidth, wp, hp } from '../common/constants';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+// import PropTypes from 'prop-types';
+import {deviceWidth, wp, hp, colors} from '../common/constants';
 
 export default class ImageSlider extends Component {
-  static propTypes = {
-    prop: PropTypes,
+  state = {
+    currentImage: 0,
   };
-
-  state={
-      currentImage:0
-  }
 
   getPosition = (event) => {
-    position = event.nativeEvent.contentOffset.x;
-    if (position < 320) {
-      this.setState({position: 0});
-    } else if (position > 320 && position < 690) {
-      this.setState({position: 1});
-    } else if (position > 690) {
-      this.setState({position: 2});
-    }
+    var offset = event.nativeEvent.contentOffset.x;
+    var position = Math.round(offset / deviceWidth);
+    this.setState({currentImage: position});
   };
   render() {
-      var newsImagesArray = this.props.newsImages
-      var hasImages = newsImagesArray.length>0
+    var newsImagesArray = this.props.images;
+    var hasImages = newsImagesArray.length > 0;
     return (
-      <View >
+      <View>
         <View style={styles.body}>
           <ScrollView
             style={styles.scrollView}
@@ -41,81 +39,81 @@ export default class ImageSlider extends Component {
                   <Image
                     resizeMode="cover"
                     style={styles.newsImage}
-                    source={{uri:image.image}}
+                    source={{uri: image.image + `/${index}`}}
                   />
                 );
               })
             ) : (
               <View style={styles.noImageContainer}>
-                  <Text style={styles.noImageText}>No Images Available</Text>
-              </View> 
+                <Text style={styles.noImageText}>No Images Available</Text>
+              </View>
             )}
           </ScrollView>
-          {
-            hasImages&&
-            this.renderIndicators()
-          }
+          {hasImages && this.renderIndicators()}
         </View>
       </View>
     );
   }
 
-  renderIndicators=()=>{
-    var newsImagesArray = this.props.newsImages
-      return(
-        <View style={styles.indicatorContainer}>
-        {newsImagesArray.map((image,index) => {
-            return (
-            <View key={index} 
-              style={[styles.dot,{
-                  backgroundColor:this.state.currentImage===index?'#ffa500':'#ddd',
-                }]}
+  renderIndicators = () => {
+    var newsImagesArray = this.props.images;
+    return (
+      <View style={styles.indicatorContainer}>
+        {newsImagesArray.map((image, index) => {
+          return (
+            <View
+              key={index}
+              style={[
+                styles.dot,
+                {
+                  backgroundColor:
+                    this.state.currentImage === index ? colors.accent : '#ddd',
+                },
+              ]}
             />
-            
-            );
+          );
         })}
-        </View>
-      )
-  }
+      </View>
+    );
+  };
 }
 
 const styles = StyleSheet.create({
-    noImageText:{
-        color:'#cccccc',
-        fontSize:hp(20),
-        fontWeight:'bold',
-        textAlign:'center'
-    },
+  noImageText: {
+    color: '#cccccc',
+    fontSize: hp(20),
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 
-    noImageContainer:{
-        width: deviceWidth,
-        aspectRatio: 2/1    ,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:'#dddddd'
-    },
-    dot:{
-        width:wp(10),
-        height:wp(10),
-        borderRadius:wp(5),
-        marginRight:wp(15)
-    },
-    indicatorContainer:{
-        flexDirection:'row',
-        width:'100%',
-        alignItems:'center',
-        justifyContent:'center',
-        position:'absolute',
-        bottom:hp(15),
-        alignSelf:'center'
-    },
-    scrollView:{
-        width: deviceWidth,
-        aspectRatio: 2/1       
-    },
-    newsImage:{
-        width: deviceWidth,
-        aspectRatio: 2/1
-    },
-
+  noImageContainer: {
+    width: deviceWidth,
+    aspectRatio: 2 / 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#dddddd',
+  },
+  dot: {
+    width: wp(10),
+    height: wp(10),
+    borderRadius: wp(5),
+    marginRight: wp(15),
+  },
+  indicatorContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: hp(15),
+    alignSelf: 'center',
+  },
+  scrollView: {
+    width: deviceWidth,
+    aspectRatio: 2 / 1,
+  },
+  newsImage: {
+    width: deviceWidth,
+    aspectRatio: 2 / 1,
+  },
 });
