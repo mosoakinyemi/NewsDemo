@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-// import PropTypes from 'prop-types';
+import {View, Image, Text, StyleSheet, ScrollView} from 'react-native';
 import {deviceWidth, wp, hp, colors} from '../common/constants';
 
 export default class ImageSlider extends Component {
@@ -115,5 +107,6 @@ const styles = StyleSheet.create({
   newsImage: {
     width: deviceWidth,
     aspectRatio: 2 / 1,
+    backgroundColor: '#fefefe',
   },
 });

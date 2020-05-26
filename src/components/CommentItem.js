@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     width: wp(50),
     height: wp(50),
     borderRadius: wp(50),
+    backgroundColor: '#ddd',
   },
   timeText: {
     fontSize: hp(12),
