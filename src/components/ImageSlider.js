@@ -5,11 +5,16 @@ import {deviceWidth, wp, hp, colors} from '../common/constants';
 export default class ImageSlider extends Component {
   state = {
     currentImage: 0,
+    rand: Math.floor(Math.random() * 100) + 1,
   };
 
+  getRandomNumber = () => {
+    return Math.floor(Math.random() * 100) + 1;
+  };
   getPosition = (event) => {
     var offset = event.nativeEvent.contentOffset.x;
     var position = Math.round(offset / deviceWidth);
+    var rand = Math.floor(Math.random() * 100) + 1;
     this.setState({currentImage: position});
   };
   render() {
@@ -27,11 +32,14 @@ export default class ImageSlider extends Component {
             scrollEventThrottle={16}>
             {hasImages ? (
               newsImagesArray.map((image, index) => {
+                var num = this.state.currentImage * this.state.rand;
                 return (
                   <Image
                     resizeMode="cover"
                     style={styles.newsImage}
-                    source={{uri: image.image + `/${index}`}}
+                    source={{
+                      uri: image.image + `?random=${num}`,
+                    }}
                   />
                 );
               })
@@ -107,6 +115,6 @@ const styles = StyleSheet.create({
   newsImage: {
     width: deviceWidth,
     aspectRatio: 2 / 1,
-    backgroundColor: '#fefefe',
+    backgroundColor: '#eee',
   },
 });

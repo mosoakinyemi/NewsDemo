@@ -14,6 +14,8 @@ import RootNavigator from './src/common/router';
 import {news} from './src/common/models';
 import LoadingScreen from './src/components/LoadingScreen';
 
+console.disableYellowBox = true;
+
 const models = {
   news,
 };
