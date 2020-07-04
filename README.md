@@ -1,5 +1,7 @@
 # News Demo
 
+This is a demo news app, created for training my students
+
 ![App Preveiw](documentation/app_preview.gif)
 
 ## Getting Started
